@@ -1,13 +1,17 @@
 package com.sap.sap_backend.data.dto;
 
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-@Table
+import java.sql.Timestamp;
+
+@Table("user_details")
 public class UserDetailsDto {
 
     @PrimaryKey
     private Integer id;
+    @Column(value = "firstname")
     private String firstName;
 
     private String middleName;
@@ -26,6 +30,15 @@ public class UserDetailsDto {
 
     private String zipCode;
 
+    private Timestamp updt_ts;
+
+    public Timestamp getUpdt_ts() {
+        return updt_ts;
+    }
+
+    public void setUpdt_ts(Timestamp updt_ts) {
+        this.updt_ts = updt_ts;
+    }
 
     public Integer getId() {
         return id;
