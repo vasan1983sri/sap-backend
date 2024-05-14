@@ -5,17 +5,14 @@ import com.sap.sap_backend.data.dto.UserDetailsDto;
 import com.sap.sap_backend.service.FeedbackService;
 import com.sap.sap_backend.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-import static java.time.LocalTime.now;
-
 @CrossOrigin
 @RestController
-@RequestMapping("spa/userDetails")
+@RequestMapping("spa")
 public class SapBackendController {
 
     @Autowired
@@ -31,24 +28,25 @@ public class SapBackendController {
     }
 
     /*Endpoint to get User Details Based on User Id*/
-    @GetMapping(value = "/byId")
+    @GetMapping(value = "/userDetails/byId")
     public UserDetailsDto getUserDetailsById(@RequestParam int id){
         return userDetailsService.getUserDetailsById(id);
     }
 
     /*Endpoint to get User Details Based on Username*/
-    @GetMapping("/byName")
+    @GetMapping("/userDetails/byName")
     public UserDetailsDto getUserDetailsByName(@RequestParam String firstName, String lastName){
         return userDetailsService.getUserDetailsByName(firstName, lastName);
     }
 
     /*Endpoint to get entire UserDetails Table Records*/
-    @GetMapping("/fullUserDetails")
+    @GetMapping("/userDetails/fullUserDetails")
     public List<UserDetailsDto> getEntireUserDetails(){
         return userDetailsService.getCompleteUserDetails();
     }
 
-    @PostMapping("/save")
+    /*Endpoint to Save User into UserDetails Table */
+    @PostMapping("/userDetails/save")
     public UserDetailsDto saveUserDetailsDto(@RequestBody UserDetailsDto userDetailsDto){
         populateUserDetails(userDetailsDto);
         return userDetailsService.saveUserDetails(userDetailsDto);
@@ -61,14 +59,24 @@ public class SapBackendController {
         userDetailsDto.setId(a);
     }
 
-    @PostMapping("/saveFeedback")
+    /*Endpoint to save Feedback*/
+    @PostMapping("/feedback/save")
     public FeedbackDto saveFeedBackDetails(@RequestBody FeedbackDto feedbackDto){
         return feedbackService.saveFeedbackDetails(feedbackDto);
     }
-    @GetMapping("/getFeedbacks")
+
+    /*Endpoint to get entire Feedback*/
+    @GetMapping("/feedback/getFeedbacks")
     public List<FeedbackDto> getCompleteFeedback()
     {
         return feedbackService.getFeedbackDetails();
+    }
+
+    /*Endpoint to get Feedback by Name*/
+    @GetMapping("/feedback/getFeedbackByName")
+    public List<FeedbackDto> getFeedbackDetailsByName(@RequestParam String username)
+    {
+        return feedbackService.getFeedbackDetailsByName(username);
     }
 
     /*Error Condition Implementation

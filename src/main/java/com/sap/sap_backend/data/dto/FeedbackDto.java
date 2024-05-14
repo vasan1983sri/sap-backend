@@ -10,19 +10,21 @@ import java.sql.Timestamp;
 public class FeedbackDto {
     @PrimaryKey
     @Column(value = "username")
-    private String username;
+    private String flName;
     @Column(value="phonenumber")
     private String phoneNumber;
     @Column(value = "email")
     private String email;
-    private String feedback;
+    @Column(value = "feedback")
+    private String fbMessage;
+    @Column(value = "updt_ts")
     private Timestamp updt_ts;
-    public String getUsername() {
-        return username;
+    public String getFlName() {
+        return flName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFlName(String flName) {
+        this.flName = flName;
     }
 
     public String getPhoneNumber() {
@@ -41,12 +43,12 @@ public class FeedbackDto {
         this.email = email;
     }
 
-    public String getFeedback() {
-        return feedback;
+    public String getFbMessage() {
+        return fbMessage;
     }
 
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
+    public void setFbMessage(String fbMessage) {
+        this.fbMessage = fbMessage;
     }
 
     public Timestamp getUpdt_ts() {
