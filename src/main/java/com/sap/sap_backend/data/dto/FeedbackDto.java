@@ -9,6 +9,9 @@ import java.sql.Timestamp;
 @Table("feedback_details")
 public class FeedbackDto {
     @PrimaryKey
+    @Column(value="id")
+    private Integer id;
+
     @Column(value = "username")
     private String flName;
     @Column(value="phonenumber")
@@ -19,6 +22,15 @@ public class FeedbackDto {
     private String fbMessage;
     @Column(value = "updt_ts")
     private Timestamp updt_ts;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getFlName() {
         return flName;
     }

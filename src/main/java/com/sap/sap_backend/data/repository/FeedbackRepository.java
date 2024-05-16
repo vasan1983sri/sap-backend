@@ -13,9 +13,13 @@ import java.util.List;
 public interface FeedbackRepository extends CassandraRepository<FeedbackDto, String> {
 
     FeedbackDto save(FeedbackDto feedbackDto);
+
+    @Query("select * from feedback_details")
+    List<Integer> getFeedBackIds();
+
     @Query("select * from feedback_details")
     List<FeedbackDto> getFullFeedbackDetails();
 
-    @Query("select * from feedback_details WHERE username = :username")
+    @Query("select * from feedback_details WHERE username = :username ALLOW FILTERING")
     List<FeedbackDto> getFullFeedbackDetailsByName(@Param("username") String username);
 }
