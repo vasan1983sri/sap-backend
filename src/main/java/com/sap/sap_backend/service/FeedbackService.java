@@ -5,9 +5,12 @@ import com.sap.sap_backend.data.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.lang.model.element.Element;
 import java.sql.Timestamp;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FeedbackService {
@@ -35,12 +38,18 @@ public class FeedbackService {
 
     public List<FeedbackDto> getFeedbackDetails(){
         List<FeedbackDto> feedbackDetails = feedbackRepository.getFullFeedbackDetails();
-        System.out.println(feedbackDetails.size());
-        return feedbackDetails;
+        List<FeedbackDto> listSorted = sortFeedBackRecordsById(feedbackDetails);
+        return listSorted;
+    }
+
+    private static List<FeedbackDto> sortFeedBackRecordsById(List<FeedbackDto> feedbackDetails) {
+        Comparator<FeedbackDto>  FeedBackComparator = Comparator.comparing(FeedbackDto::getId);
+        List<FeedbackDto> listSorted = feedbackDetails.stream().sorted(FeedBackComparator).collect(Collectors.toList());
+        return listSorted;
     }
 
 
-//    @Cacheable(value="feedbackDetails", key = "{#username}")
+    //    @Cacheable(value="feedbackDetails", key = "{#username}")
     public List<FeedbackDto> getFeedbackDetailsByName(String username){
         List<FeedbackDto> feedbackDetails = feedbackRepository.getFullFeedbackDetailsByName(username.toLowerCase());
         System.out.println(feedbackDetails.size());
