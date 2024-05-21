@@ -27,6 +27,15 @@ public class FeedbackService {
         }
         return maxId+1;
     }
+
+    public String processFeedbackDTOList(List<FeedbackDto> feedbackDtoList)
+    {
+        feedbackDtoList.stream().forEach( x -> {
+            saveFeedbackDetails(x);
+        });
+        return "Successfully Saved";
+    }
+
     public FeedbackDto saveFeedbackDetails(FeedbackDto feedbackDto){
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         feedbackDto.setUpdt_ts(ts);
