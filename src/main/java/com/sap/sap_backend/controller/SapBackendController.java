@@ -65,6 +65,7 @@ public class SapBackendController {
         return feedbackService.saveFeedbackDetails(feedbackDto);
     }
 
+    /*Endpoint to Process the List of Feedbacks and Save*/
     @PostMapping("/feedback/saveFeedbackList")
     public String saveFeedBackDetails(@RequestBody List<FeedbackDto> feedbackDto){
         return feedbackService.processFeedbackDTOList(feedbackDto);
