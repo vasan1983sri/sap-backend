@@ -54,6 +54,8 @@ public class SapBackendController {
 
     private void populateUserDetails(UserDetailsDto userDetailsDto) {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
+        String userPhoneNumber = userDetailsDto.getPhoneNumber();
+        userDetailsDto.setPhoneNumber(userPhoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3"));
         userDetailsDto.setUpdt_ts(ts);
         Integer a = userDetailsService.getUserIds();
         userDetailsDto.setId(a);
